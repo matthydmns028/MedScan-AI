@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedScan AI — Disease Predictor</title>
+    <meta name="description" content="AI-powered disease prediction from symptom analysis using NLP Machine Learning">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Animated background orbs -->
+<div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<div class="app-wrapper">
+    <!-- Header with theme toggle -->
+    <div class="top-bar">
+        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Ganti Tema">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button id="historyToggle" class="history-toggle" onclick="toggleHistory()" title="Riwayat Prediksi">
+            <i class="fas fa-clock-rotate-left"></i>
+            <span id="historyBadge" class="history-badge" style="display:none">0</span>
+        </button>
+    </div>
+
+    <!-- Branding -->
+    <div class="brand">
+        <div class="brand-icon">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <h1>MedScan <span>AI</span></h1>
+        <p class="brand-tagline">Intelligent Symptom Analysis &bull; v2.0</p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+        <div class="card-inner">
+            <div class="input-section">
+                <label for="symptoms">
+                    <i class="fas fa-notes-medical"></i>
+                    Deskripsikan gejala Anda
+                </label>
+                <div class="textarea-wrapper">
+                    <textarea id="symptoms" placeholder="Contoh: sakit kepala, demam, batuk, sesak napas&#10;Atau: headache, fever, cough, shortness of breath&#10;Atau campuran: pusing, fever, mual, chest pain"></textarea>
+                    <div class="textarea-glow"></div>
+                    <span class="char-count" id="charCount">0 / 500</span>
+                </div>
+                <p class="input-hint">
+                    <i class="fas fa-language"></i>
+                    Mendukung Bahasa Indonesia, English, atau campuran — pisahkan dengan koma
+                </p>
+            </div>
+
+            <!-- Symptom Quick Chips -->
+            <div class="chips-section">
+                <p class="chips-label"><i class="fas fa-bolt"></i> Gejala Umum — klik untuk menambahkan:</p>
+                <div class="chips-container" id="symptomChips">
+                    <!-- Chips will be loaded from API or fallback -->
+                </div>
+            </div>
+
+            <button id="predictBtn" class="btn-analyze" onclick="predictDisease()">
+                <span class="btn-content">
+                    <i class="fas fa-microscope"></i>
+                    <span>Analisis Gejala</span>
+                </span>
+                <span class="btn-shimmer"></span>
+            </button>
+            <p class="shortcut-hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> untuk analisis</p>
+
+            <div id="loading" class="loader-container">
+                <div class="pulse-loader">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    <i class="fas fa-dna"></i>
+                </div>
+                <p>Menganalisis database medis<span class="dots"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="result" class="result-section"></div>
+
+    <!-- History Panel -->
+    <div id="historyPanel" class="history-panel" style="display:none">
+        <div class="history-header">
+            <h3><i class="fas fa-clock-rotate-left"></i> Riwayat Prediksi</h3>
+            <button class="history-clear" onclick="clearHistory()" title="Hapus Semua">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+        <div id="historyList" class="history-list">
+            <p class="history-empty">Belum ada riwayat prediksi.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Disease Info Modal -->
+<div id="diseaseModal" class="modal-overlay" style="display:none" onclick="closeDiseaseModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeDiseaseModal()"><i class="fas fa-times"></i></button>
+        <div id="modalContent">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = 'http://127.0.0.1:5000';
+
+    // ===========================
+    // Theme Toggle
+    // ===========================
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('medscan-theme', next);
+        updateThemeIcon(next);
+    }
+
+    function updateThemeIcon(theme) {
+        const icon = document.getElementById('themeIcon');
+        icon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+
+    // Load saved theme
+    (function() {
+        const saved = localStorage.getItem('medscan-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+        updateThemeIcon(saved);
+    })();
+
+    // ===========================
+    // Character Count
+    // ===========================
+    const textarea = document.getElementById('symptoms');
+    const charCount = document.getElementById('charCount');
+
+    textarea.addEventListener('input', () => {
+        const len = textarea.value.length;
+        charCount.textContent = `${len} / 500`;
+        charCount.classList.toggle('over-limit', len > 500);
+    });
+
+    // Ctrl+Enter shortcut
+    textarea.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'Enter') {
+            e.preventDefault();
+            predictDisease();
+        }
+    });
+
+    // ===========================
+    // Symptom Quick Chips
+    // ===========================
+    const fallbackSymptoms = [
+        {id: "headache", label_id: "Sakit Kepala"},
+        {id: "fever", label_id: "Demam"},
+        {id: "cough", label_id: "Batuk"},
+        {id: "fatigue", label_id: "Kelelahan"},
+        {id: "nausea", label_id: "Mual"},
+        {id: "dizziness", label_id: "Pusing"},
+        {id: "shortness of breath", label_id: "Sesak Napas"},
+        {id: "chest pain", label_id: "Nyeri Dada"},
+        {id: "sore throat", label_id: "Sakit Tenggorokan"},
+        {id: "diarrhea", label_id: "Diare"},
+        {id: "vomiting", label_id: "Muntah"},
+        {id: "abdominal pain", label_id: "Sakit Perut"},
+        {id: "back pain", label_id: "Nyeri Punggung"},
+        {id: "joint pain", label_id: "Nyeri Sendi"},
+        {id: "skin rash", label_id: "Ruam Kulit"},
+        {id: "insomnia", label_id: "Insomnia"},
+        {id: "anxiety", label_id: "Cemas"},
+        {id: "blurred vision", label_id: "Penglihatan Kabur"},
+        {id: "swelling", label_id: "Bengkak"},
+        {id: "chills", label_id: "Menggigil"},
+    ];
+
+    function loadSymptomChips(symptoms) {
+        const container = document.getElementById('symptomChips');
+        container.innerHTML = '';
+        symptoms.forEach(s => {
+            const chip = document.createElement('button');
+            chip.className = 'symptom-chip';
+            chip.textContent = s.label_id;
+            chip.setAttribute('data-symptom', s.id);
+            chip.onclick = () => addSymptomChip(s.id, chip);
+            container.appendChild(chip);
+        });
+    }
+
+    function addSymptomChip(symptom, chipEl) {
+        const ta = document.getElementById('symptoms');
+        const current = ta.value.trim();
+
+        // Check if already added
+        const existing = current.split(',').map(s => s.trim().toLowerCase());
+        if (existing.includes(symptom.toLowerCase())) {
+            chipEl.classList.add('chip-shake');
+            setTimeout(() => chipEl.classList.remove('chip-shake'), 400);
+            return;
+        }
+
+        ta.value = current ? `${current}, ${symptom}` : symptom;
+        chipEl.classList.add('chip-active');
+
+        // Update char count
+        const len = ta.value.length;
+        charCount.textContent = `${len} / 500`;
+    }
+
+    // Load chips from API or fallback
+    fetch(`${API_BASE}/symptom-suggestions`)
+        .then(r => r.json())
+        .then(data => loadSymptomChips(data.symptoms || fallbackSymptoms))
+        .catch(() => loadSymptomChips(fallbackSymptoms));
+
+    // ===========================
+    // Loading Animation
+    // ===========================
+    let dotInterval;
+    function startDots() {
+        const dotsEl = document.querySelector('.dots');
+        if (!dotsEl) return;
+        let count = 0;
+        dotInterval = setInterval(() => {
+            count = (count + 1) % 4;
+            dotsEl.textContent = '.'.repeat(count);
+        }, 400);
+    }
+    function stopDots() { clearInterval(dotInterval); }
+
+    // ===========================
+    // Main Prediction
+    // ===========================
+    async function predictDisease() {
+        const symptoms = document.getElementById("symptoms").value.trim();
+        const resultDiv = document.getElementById("result");
+        const predictBtn = document.getElementById("predictBtn");
+        const loading = document.getElementById("loading");
+
+        resultDiv.style.display = "none";
+        resultDiv.innerHTML = "";
+
+        if (!symptoms) {
+            resultDiv.innerHTML = `
+                <div class="result-card error-card">
+                    <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <p>Mohon masukkan gejala Anda terlebih dahulu.</p>
+                </div>`;
+            resultDiv.style.display = "block";
+            return;
+        }
+
+        if (symptoms.length > 500) {
+            resultDiv.innerHTML = `
+                <div class="result-card error-card">
+                    <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <p>Input terlalu panjang. Maksimum 500 karakter.</p>
+                </div>`;
+            resultDiv.style.display = "block";
+            return;
+        }
+
+        predictBtn.style.display = "none";
+        loading.style.display = "flex";
+        startDots();
+
+        try {
+            const response = await fetch(`${API_BASE}/predict`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ symptoms: symptoms, top_n: 5 })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.predictions) {
+                const maxProb = data.predictions[0].probability;
+
+                let html = `<div class="result-card success-card">`;
+
+                // Show translation info if any translations were made
+                if (data.translations && data.translations.length > 0) {
+                    html += `
+                        <div class="translation-box">
+                            <div class="translation-header">
+                                <i class="fas fa-language"></i>
+                                <span>Terjemahan Otomatis</span>
+                            </div>
+                            <div class="translation-chips">`;
+                    data.translations.forEach(t => {
+                        html += `<div class="translation-chip">
+                                    <span class="chip-from">${t.from}</span>
+                                    <i class="fas fa-arrow-right chip-arrow"></i>
+                                    <span class="chip-to">${t.to}</span>
+                                 </div>`;
+                    });
+                    html += `</div>
+                        </div>`;
+                }
+
+                html += `
+                    <div class="result-header-row">
+                        <div class="result-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div>
+                            <h3>Analisis Selesai</h3>
+                            <p class="result-sub">Top ${data.predictions.length} kemungkinan penyakit</p>
+                        </div>
+                    </div>
+
+                    <div class="predictions-grid">`;
+
+                data.predictions.forEach((item, i) => {
+                    const barScale = maxProb > 0 ? (item.probability / maxProb) * 100 : 0;
+                    const colors = [
+                        ['#00e6a7', '#00b386'],
+                        ['#3b82f6', '#2563eb'],
+                        ['#f59e0b', '#d97706'],
+                        ['#a78bfa', '#7c3aed'],
+                        ['#64748b', '#475569']
+                    ];
+                    const [c1, c2] = colors[i] || colors[4];
+                    const confidence = item.confidence || {};
+                    const severityLabel = confidence.label || '';
+
+                    html += `
+                        <div class="pred-item ${i === 0 ? 'pred-top' : ''}" style="animation-delay: ${i * 0.08}s">
+                            <div class="pred-rank" style="background: linear-gradient(135deg, ${c1}, ${c2})">
+                                ${i + 1}
+                            </div>
+                            <div class="pred-body">
+                                <div class="pred-header">
+                                    <span class="pred-name">${capitalizeWords(item.disease)}</span>
+                                    <div class="pred-meta">
+                                        ${severityLabel ? `<span class="confidence-badge" style="color:${confidence.color}">${severityLabel}</span>` : ''}
+                                        <span class="pred-pct">${item.probability}%</span>
+                                    </div>
+                                </div>
+                                <div class="pred-bar-track">
+                                    <div class="pred-bar-fill" 
+                                         style="--bar-color-1: ${c1}; --bar-color-2: ${c2};" 
+                                         data-width="${barScale}%"></div>
+                                </div>
+                                ${item.has_info ? `<button class="info-btn" onclick="showDiseaseInfo('${item.disease.replace(/'/g, "\\'")}')"><i class="fas fa-info-circle"></i> Lihat Detail</button>` : ''}
+                            </div>
+                        </div>`;
+                });
+
+                html += `
+                    </div>
+                    <div class="disclaimer-bar">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Disclaimer: Hasil ini hanya untuk tujuan edukasi. Selalu konsultasikan dengan dokter profesional untuk diagnosis yang akurat.</span>
+                    </div>
+                </div>`;
+
+                resultDiv.innerHTML = html;
+
+                // Animate bars after render
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        document.querySelectorAll('.pred-bar-fill').forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-width');
+                        });
+                    }, 50);
+                });
+
+                // Save to history
+                saveToHistory(symptoms, data.predictions[0]);
+
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="result-card error-card">
+                        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <p>${data.error}</p>
+                    </div>`;
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `
+                <div class="result-card error-card">
+                    <div class="error-icon"><i class="fas fa-plug"></i></div>
+                    <p>Koneksi gagal — pastikan server API sedang berjalan.</p>
+                </div>`;
+        } finally {
+            stopDots();
+            loading.style.display = "none";
+            predictBtn.style.display = "flex";
+            resultDiv.style.display = "block";
+        }
+    }
+
+    function capitalizeWords(str) {
+        return str.replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    // ===========================
+    // Disease Info Modal
+    // ===========================
+    async function showDiseaseInfo(diseaseName) {
+        const modal = document.getElementById('diseaseModal');
+        const content = document.getElementById('modalContent');
+
+        content.innerHTML = `<div class="modal-loading"><div class="pulse-loader" style="transform:scale(0.6)"><div class="pulse-ring"></div><i class="fas fa-dna"></i></div><p>Memuat informasi...</p></div>`;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        try {
+            const res = await fetch(`${API_BASE}/disease-info/${encodeURIComponent(diseaseName)}`);
+            const data = await res.json();
+
+            if (data.found) {
+                const severityColors = {
+                    'low': { bg: '#0d4d2e', border: '#00e6a7', text: '#00e6a7', label: 'Ringan' },
+                    'medium': { bg: '#4d3800', border: '#f59e0b', text: '#f59e0b', label: 'Sedang' },
+                    'high': { bg: '#4d1a1a', border: '#f87171', text: '#f87171', label: 'Berat' },
+                    'critical': { bg: '#4d0d0d', border: '#ef4444', text: '#ef4444', label: 'Kritis' }
+                };
+                const sev = severityColors[data.severity] || severityColors['medium'];
+
+                content.innerHTML = `
+                    <div class="modal-header">
+                        <h2>${capitalizeWords(data.disease)}</h2>
+                        <span class="severity-badge" style="background:${sev.bg};border-color:${sev.border};color:${sev.text}">
+                            <i class="fas fa-circle" style="font-size:8px"></i> ${sev.label}
+                        </span>
+                    </div>
+
+                    <p class="modal-description">${data.description}</p>
+
+                    <div class="modal-info-grid">
+                        <div class="modal-info-item">
+                            <div class="modal-info-icon"><i class="fas fa-user-doctor"></i></div>
+                            <div>
+                                <span class="modal-info-label">Spesialis</span>
+                                <span class="modal-info-value">${data.specialist}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h4><i class="fas fa-stethoscope"></i> Gejala Umum</h4>
+                        <div class="modal-symptom-chips">
+                            ${data.common_symptoms.map(s => `<span class="modal-chip">${s}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="modal-section advice-section">
+                        <h4><i class="fas fa-lightbulb"></i> Saran</h4>
+                        <p>${data.advice}</p>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="modal-empty">
+                        <i class="fas fa-file-medical" style="font-size:40px;color:var(--text-muted);margin-bottom:16px"></i>
+                        <p>Informasi detail belum tersedia untuk <strong>${capitalizeWords(diseaseName)}</strong>.</p>
+                        <p style="color:var(--text-muted);font-size:13px;margin-top:8px">Database akan terus diperbarui.</p>
+                    </div>
+                `;
+            }
+        } catch {
+            content.innerHTML = `
+                <div class="modal-empty">
+                    <i class="fas fa-exclamation-triangle" style="font-size:40px;color:var(--danger);margin-bottom:16px"></i>
+                    <p>Gagal memuat informasi. Pastikan server berjalan.</p>
+                </div>
+            `;
+        }
+    }
+
+    function closeDiseaseModal(event) {
+        if (event && event.target !== event.currentTarget) return;
+        document.getElementById('diseaseModal').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // Close modal on Escape
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeDiseaseModal();
+    });
+
+    // ===========================
+    // Prediction History
+    // ===========================
+    function getHistory() {
+        try {
+            return JSON.parse(localStorage.getItem('medscan-history') || '[]');
+        } catch { return []; }
+    }
+
+    function saveToHistory(symptoms, topPrediction) {
+        const history = getHistory();
+        history.unshift({
+            symptoms,
+            disease: topPrediction.disease,
+            probability: topPrediction.probability,
+            timestamp: new Date().toISOString()
+        });
+        // Keep last 10
+        if (history.length > 10) history.pop();
+        localStorage.setItem('medscan-history', JSON.stringify(history));
+        updateHistoryBadge();
+    }
+
+    function updateHistoryBadge() {
+        const badge = document.getElementById('historyBadge');
+        const count = getHistory().length;
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    function toggleHistory() {
+        const panel = document.getElementById('historyPanel');
+        const isVisible = panel.style.display !== 'none';
+        panel.style.display = isVisible ? 'none' : 'block';
+        if (!isVisible) renderHistory();
+    }
+
+    function renderHistory() {
+        const list = document.getElementById('historyList');
+        const history = getHistory();
+
+        if (history.length === 0) {
+            list.innerHTML = '<p class="history-empty">Belum ada riwayat prediksi.</p>';
+            return;
+        }
+
+        list.innerHTML = history.map((item, i) => {
+            const date = new Date(item.timestamp);
+            const timeStr = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+            return `
+                <div class="history-item" style="animation-delay:${i * 0.05}s" onclick="loadFromHistory('${item.symptoms.replace(/'/g, "\\'")}')">
+                    <div class="history-item-top">
+                        <span class="history-disease">${capitalizeWords(item.disease)}</span>
+                        <span class="history-prob">${item.probability}%</span>
+                    </div>
+                    <p class="history-symptoms">${item.symptoms}</p>
+                    <span class="history-time"><i class="fas fa-clock"></i> ${timeStr}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function loadFromHistory(symptoms) {
+        document.getElementById('symptoms').value = symptoms;
+        charCount.textContent = `${symptoms.length} / 500`;
+        toggleHistory();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function clearHistory() {
+        localStorage.removeItem('medscan-history');
+        renderHistory();
+        updateHistoryBadge();
+    }
+
+    // Init
+    updateHistoryBadge();
+</script>
+
+</body>
+</html>

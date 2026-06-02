@@ -1,0 +1,345 @@
+{
+  "cystitis": {
+    "description": "Inflammation of the bladder, usually caused by a bacterial urinary tract infection (UTI). Common in women and can cause significant discomfort.",
+    "severity": "medium",
+    "specialist": "Urologist",
+    "common_symptoms": ["painful urination", "frequent urination", "pelvic pain", "cloudy urine", "blood in urine"],
+    "advice": "Drink plenty of water, avoid caffeine and alcohol, and see a doctor for antibiotics if symptoms persist."
+  },
+  "vulvodynia": {
+    "description": "Chronic pain or discomfort around the opening of the vagina (vulva) with no identifiable cause, lasting at least 3 months.",
+    "severity": "medium",
+    "specialist": "Gynecologist",
+    "common_symptoms": ["burning sensation", "soreness", "stinging", "pain during intercourse", "throbbing in vulvar area"],
+    "advice": "Avoid irritants, use cotton underwear, apply cool compresses, and consult a gynecologist for treatment options."
+  },
+  "nose disorder": {
+    "description": "A broad category covering conditions affecting the nasal passages, including chronic rhinitis, nasal polyps, and deviated septum.",
+    "severity": "low",
+    "specialist": "ENT (Otolaryngologist)",
+    "common_symptoms": ["nasal congestion", "runny nose", "sneezing", "nosebleed", "loss of smell"],
+    "advice": "Use saline nasal spray, avoid allergens, and consult an ENT specialist if symptoms are chronic."
+  },
+  "complex regional pain syndrome": {
+    "description": "A chronic pain condition that typically affects an arm or leg, usually developing after an injury or surgery, characterized by prolonged severe pain.",
+    "severity": "high",
+    "specialist": "Pain Management Specialist",
+    "common_symptoms": ["burning pain", "swelling", "skin color changes", "sensitivity to touch", "joint stiffness"],
+    "advice": "Seek early treatment. Physical therapy, nerve blocks, and medication can help manage symptoms."
+  },
+  "spondylosis": {
+    "description": "Age-related wear and tear affecting the spinal discs and joints. Also known as spinal osteoarthritis, it commonly affects the neck and lower back.",
+    "severity": "medium",
+    "specialist": "Orthopedic Surgeon / Neurologist",
+    "common_symptoms": ["back pain", "neck pain", "stiffness", "numbness in limbs", "headache"],
+    "advice": "Maintain good posture, exercise regularly, use hot/cold therapy, and consult a doctor for pain management."
+  },
+  "vaginal cyst": {
+    "description": "Small fluid-filled sacs that develop on or under the vaginal lining. Most are benign and may not cause symptoms.",
+    "severity": "low",
+    "specialist": "Gynecologist",
+    "common_symptoms": ["lump near vaginal opening", "discomfort during activity", "pain during intercourse", "mild swelling"],
+    "advice": "Most cysts resolve on their own. Warm baths can help. See a gynecologist if the cyst is painful or infected."
+  },
+  "conjunctivitis due to allergy": {
+    "description": "Inflammation of the conjunctiva (eye membrane) triggered by allergens such as pollen, dust mites, or pet dander.",
+    "severity": "low",
+    "specialist": "Ophthalmologist / Allergist",
+    "common_symptoms": ["itchy eyes", "red eyes", "watery eyes", "swollen eyelids", "sneezing"],
+    "advice": "Avoid allergens, use antihistamine eye drops, apply cool compresses, and don't rub your eyes."
+  },
+  "peripheral nerve disorder": {
+    "description": "Damage to the peripheral nerves causing weakness, numbness, and pain, usually in the hands and feet. Can result from diabetes, infections, or injuries.",
+    "severity": "high",
+    "specialist": "Neurologist",
+    "common_symptoms": ["numbness", "tingling", "burning pain", "muscle weakness", "sensitivity to touch"],
+    "advice": "Manage underlying conditions (e.g. diabetes), take prescribed medications, and consider physical therapy."
+  },
+  "esophagitis": {
+    "description": "Inflammation of the esophagus that can cause pain, difficulty swallowing, and chest pain. Often caused by acid reflux or infection.",
+    "severity": "medium",
+    "specialist": "Gastroenterologist",
+    "common_symptoms": ["difficulty swallowing", "chest pain", "heartburn", "acid reflux", "nausea"],
+    "advice": "Avoid spicy/acidic foods, eat smaller meals, don't lie down after eating, and see a gastroenterologist."
+  },
+  "hypoglycemia": {
+    "description": "Abnormally low blood sugar levels, most common in people with diabetes. Can cause confusion, shakiness, and in severe cases, loss of consciousness.",
+    "severity": "high",
+    "specialist": "Endocrinologist",
+    "common_symptoms": ["shakiness", "dizziness", "sweating", "confusion", "rapid heartbeat", "hunger"],
+    "advice": "Immediately consume fast-acting sugar (juice, candy). If symptoms are severe, seek emergency care."
+  },
+  "diverticulitis": {
+    "description": "Inflammation or infection of small pouches (diverticula) that form along the walls of the intestines, most commonly in the colon.",
+    "severity": "high",
+    "specialist": "Gastroenterologist",
+    "common_symptoms": ["abdominal pain", "fever", "nausea", "constipation", "bloating"],
+    "advice": "Liquid diet during flare-ups, antibiotics as prescribed, high-fiber diet for prevention. See a doctor promptly."
+  },
+  "gastrointestinal hemorrhage": {
+    "description": "Bleeding anywhere in the gastrointestinal tract from the esophagus to the rectum. Can range from mild to life-threatening.",
+    "severity": "critical",
+    "specialist": "Gastroenterologist / Emergency Medicine",
+    "common_symptoms": ["blood in stool", "vomiting blood", "dark tarry stools", "abdominal pain", "weakness"],
+    "advice": "Seek emergency medical care immediately. Do not eat or drink until evaluated by a doctor."
+  },
+  "acute bronchitis": {
+    "description": "Short-term inflammation of the bronchial tubes, usually caused by viral infections. Often follows a cold or flu.",
+    "severity": "low",
+    "specialist": "Pulmonologist / General Practitioner",
+    "common_symptoms": ["cough", "phlegm", "chest tightness", "fatigue", "mild fever", "sore throat"],
+    "advice": "Rest, stay hydrated, use a humidifier, and take OTC cough medicine. See a doctor if symptoms last over 3 weeks."
+  },
+  "pneumonia": {
+    "description": "Infection that inflames the air sacs in one or both lungs. Can be caused by bacteria, viruses, or fungi and ranges from mild to life-threatening.",
+    "severity": "high",
+    "specialist": "Pulmonologist",
+    "common_symptoms": ["cough with phlegm", "fever", "chills", "shortness of breath", "chest pain", "fatigue"],
+    "advice": "See a doctor immediately. Antibiotics are needed for bacterial pneumonia. Rest and stay hydrated."
+  },
+  "infectious gastroenteritis": {
+    "description": "Inflammation of the stomach and intestines caused by viral, bacterial, or parasitic infection. Commonly known as stomach flu.",
+    "severity": "medium",
+    "specialist": "Gastroenterologist / General Practitioner",
+    "common_symptoms": ["diarrhea", "vomiting", "nausea", "abdominal cramps", "fever", "dehydration"],
+    "advice": "Stay hydrated with oral rehydration solutions. Eat bland foods. Seek medical care if symptoms are severe."
+  },
+  "spontaneous abortion": {
+    "description": "Natural loss of a pregnancy before the 20th week. Also known as miscarriage. Affects about 10-20% of known pregnancies.",
+    "severity": "critical",
+    "specialist": "Obstetrician / Gynecologist",
+    "common_symptoms": ["vaginal bleeding", "cramping", "abdominal pain", "tissue passing", "back pain"],
+    "advice": "Seek immediate medical attention. Emotional support is important. Follow-up care with an OB/GYN is essential."
+  },
+  "sprain or strain": {
+    "description": "Sprains are stretched or torn ligaments, while strains affect muscles or tendons. Common in ankles, knees, and wrists.",
+    "severity": "low",
+    "specialist": "Orthopedic Surgeon / Sports Medicine",
+    "common_symptoms": ["pain", "swelling", "bruising", "limited movement", "muscle spasm"],
+    "advice": "Follow RICE protocol: Rest, Ice, Compression, Elevation. See a doctor if you cannot bear weight."
+  },
+  "fungal infection of the hair": {
+    "description": "Fungal infection affecting the scalp and hair shafts, commonly known as tinea capitis. Most common in children.",
+    "severity": "low",
+    "specialist": "Dermatologist",
+    "common_symptoms": ["itchy scalp", "hair loss patches", "scaly skin", "red patches", "brittle hair"],
+    "advice": "Use antifungal shampoo and oral antifungals as prescribed. Avoid sharing combs, hats, and towels."
+  },
+  "gout": {
+    "description": "A form of inflammatory arthritis caused by excess uric acid crystallizing in joints, typically the big toe. Causes sudden, severe pain.",
+    "severity": "medium",
+    "specialist": "Rheumatologist",
+    "common_symptoms": ["intense joint pain", "swelling", "redness", "warmth in joint", "limited mobility"],
+    "advice": "Avoid high-purine foods (red meat, alcohol). Take anti-inflammatory medications. Stay hydrated."
+  },
+  "arthritis of the hip": {
+    "description": "Degenerative joint disease affecting the hip joint, causing the cartilage to wear down. Most common in older adults.",
+    "severity": "medium",
+    "specialist": "Orthopedic Surgeon / Rheumatologist",
+    "common_symptoms": ["hip pain", "stiffness", "reduced range of motion", "grinding sensation", "difficulty walking"],
+    "advice": "Low-impact exercise, weight management, physical therapy, and pain medications. Surgery may be needed."
+  },
+  "strep throat": {
+    "description": "Bacterial infection of the throat and tonsils caused by Group A Streptococcus. Highly contagious and common in children.",
+    "severity": "medium",
+    "specialist": "General Practitioner / ENT",
+    "common_symptoms": ["severe sore throat", "fever", "swollen tonsils", "red spots on palate", "difficulty swallowing"],
+    "advice": "See a doctor for a rapid strep test. Antibiotics are essential to prevent complications like rheumatic fever."
+  },
+  "liver disease": {
+    "description": "Any condition that damages the liver and affects its function, including hepatitis, cirrhosis, and fatty liver disease.",
+    "severity": "high",
+    "specialist": "Hepatologist / Gastroenterologist",
+    "common_symptoms": ["jaundice", "abdominal pain", "swelling", "fatigue", "nausea", "dark urine"],
+    "advice": "Avoid alcohol, maintain a healthy diet, get vaccinated for hepatitis, and see a specialist regularly."
+  },
+  "bursitis": {
+    "description": "Inflammation of the fluid-filled sacs (bursae) that cushion bones, tendons, and muscles near joints. Common in shoulders, elbows, and hips.",
+    "severity": "low",
+    "specialist": "Orthopedic Surgeon / Rheumatologist",
+    "common_symptoms": ["joint pain", "stiffness", "swelling", "redness", "pain with movement"],
+    "advice": "Rest the affected joint, apply ice, take anti-inflammatory medications. Physical therapy may help."
+  },
+  "acute pancreatitis": {
+    "description": "Sudden inflammation of the pancreas that can be mild or life-threatening. Often caused by gallstones or heavy alcohol use.",
+    "severity": "critical",
+    "specialist": "Gastroenterologist",
+    "common_symptoms": ["severe abdominal pain", "nausea", "vomiting", "fever", "rapid pulse", "tenderness"],
+    "advice": "Seek emergency medical care. Treatment requires hospitalization with IV fluids and pain management."
+  },
+  "spinal stenosis": {
+    "description": "Narrowing of the spaces within the spine, putting pressure on nerves. Most common in the lower back and neck.",
+    "severity": "high",
+    "specialist": "Neurologist / Orthopedic Surgeon",
+    "common_symptoms": ["back pain", "numbness in legs", "weakness", "difficulty walking", "balance problems"],
+    "advice": "Physical therapy, pain medications, and steroid injections. Surgery may be needed in severe cases."
+  },
+  "eczema": {
+    "description": "A chronic skin condition causing red, itchy, inflamed patches. Also known as atopic dermatitis. Often starts in childhood.",
+    "severity": "low",
+    "specialist": "Dermatologist",
+    "common_symptoms": ["itchy skin", "dry skin", "red patches", "skin rash", "cracked skin", "swelling"],
+    "advice": "Moisturize regularly, avoid triggers, use prescribed topical steroids, and wear soft fabrics."
+  },
+  "benign prostatic hyperplasia (bph)": {
+    "description": "Non-cancerous enlargement of the prostate gland, common in older men. Causes urinary problems by pressing on the urethra.",
+    "severity": "medium",
+    "specialist": "Urologist",
+    "common_symptoms": ["frequent urination", "difficulty urinating", "weak urine stream", "incomplete emptying", "nocturia"],
+    "advice": "Limit caffeine and alcohol, avoid fluids before bed. Medications or surgery may be needed."
+  },
+  "noninfectious gastroenteritis": {
+    "description": "Inflammation of the stomach and intestines not caused by infection, often triggered by food sensitivities, medications, or toxins.",
+    "severity": "medium",
+    "specialist": "Gastroenterologist",
+    "common_symptoms": ["nausea", "vomiting", "diarrhea", "abdominal cramps", "bloating"],
+    "advice": "Identify and avoid triggers. Stay hydrated, eat bland foods, and consult a doctor if symptoms persist."
+  },
+  "cholecystitis": {
+    "description": "Inflammation of the gallbladder, usually caused by gallstones blocking the bile duct. Can become a medical emergency.",
+    "severity": "high",
+    "specialist": "General Surgeon / Gastroenterologist",
+    "common_symptoms": ["severe right-side abdominal pain", "nausea", "vomiting", "fever", "pain after eating"],
+    "advice": "Seek medical attention promptly. Low-fat diet may help. Surgical removal of the gallbladder is often needed."
+  },
+  "acute bronchiolitis": {
+    "description": "Infection of the small airways (bronchioles) in the lungs, most common in infants and young children. Usually caused by RSV.",
+    "severity": "medium",
+    "specialist": "Pediatrician / Pulmonologist",
+    "common_symptoms": ["wheezing", "cough", "difficulty breathing", "rapid breathing", "fever", "nasal congestion"],
+    "advice": "Keep the child hydrated, use a humidifier, monitor breathing. Seek emergency care if breathing is labored."
+  },
+  "anxiety": {
+    "description": "A mental health condition characterized by persistent, excessive worry and fear about everyday situations. Can be debilitating.",
+    "severity": "medium",
+    "specialist": "Psychiatrist / Psychologist",
+    "common_symptoms": ["excessive worry", "restlessness", "fatigue", "difficulty concentrating", "sleep disturbance", "muscle tension"],
+    "advice": "Practice relaxation techniques, exercise regularly, limit caffeine. Consider therapy (CBT) and medication."
+  },
+  "obstructive sleep apnea (osa)": {
+    "description": "A sleep disorder where breathing repeatedly stops and starts during sleep due to throat muscles relaxing and blocking the airway.",
+    "severity": "high",
+    "specialist": "Sleep Medicine Specialist / Pulmonologist",
+    "common_symptoms": ["loud snoring", "daytime sleepiness", "morning headaches", "choking during sleep", "difficulty concentrating"],
+    "advice": "Use a CPAP machine, maintain healthy weight, avoid alcohol before bed, and sleep on your side."
+  },
+  "concussion": {
+    "description": "A mild traumatic brain injury caused by a bump, blow, or jolt to the head. Temporarily affects brain function.",
+    "severity": "high",
+    "specialist": "Neurologist / Emergency Medicine",
+    "common_symptoms": ["headache", "confusion", "dizziness", "nausea", "memory problems", "sensitivity to light"],
+    "advice": "Rest physically and mentally. Avoid screens. Seek emergency care if symptoms worsen or there's loss of consciousness."
+  },
+  "dental caries": {
+    "description": "Tooth decay caused by bacteria producing acids that destroy tooth enamel. One of the most common chronic diseases worldwide.",
+    "severity": "low",
+    "specialist": "Dentist",
+    "common_symptoms": ["toothache", "sensitivity to hot/cold", "visible holes in teeth", "pain when biting", "bad breath"],
+    "advice": "Brush twice daily, floss, limit sugary foods. See a dentist for fillings or other treatments."
+  },
+  "pyogenic skin infection": {
+    "description": "Bacterial skin infection producing pus, including conditions like impetigo, cellulitis, and abscesses. Often caused by Staphylococcus or Streptococcus.",
+    "severity": "medium",
+    "specialist": "Dermatologist",
+    "common_symptoms": ["redness", "swelling", "pus formation", "pain", "warmth at site", "fever"],
+    "advice": "Keep the area clean, apply prescribed antibiotics. See a doctor for drainage if an abscess forms."
+  },
+  "depression": {
+    "description": "A mood disorder causing persistent feelings of sadness, hopelessness, and loss of interest. Affects how you think, feel, and handle daily activities.",
+    "severity": "high",
+    "specialist": "Psychiatrist / Psychologist",
+    "common_symptoms": ["persistent sadness", "loss of interest", "fatigue", "sleep changes", "appetite changes", "difficulty concentrating"],
+    "advice": "Seek professional help. Therapy (CBT), medication, exercise, and social support are all effective treatments."
+  },
+  "acute sinusitis": {
+    "description": "Short-term inflammation of the sinuses, usually following a cold. Causes mucus buildup and facial pressure.",
+    "severity": "low",
+    "specialist": "ENT (Otolaryngologist)",
+    "common_symptoms": ["facial pain", "nasal congestion", "thick nasal discharge", "headache", "cough", "reduced smell"],
+    "advice": "Use saline nasal spray, steam inhalation, stay hydrated. Antibiotics may be needed for bacterial sinusitis."
+  },
+  "herniated disk": {
+    "description": "A condition where the soft center of a spinal disc pushes through a crack in the tougher exterior, irritating nearby nerves.",
+    "severity": "high",
+    "specialist": "Orthopedic Surgeon / Neurologist",
+    "common_symptoms": ["back pain", "leg pain (sciatica)", "numbness", "tingling", "muscle weakness"],
+    "advice": "Physical therapy, pain medications, and activity modification. Surgery may be needed if conservative treatment fails."
+  },
+  "chronic constipation": {
+    "description": "Persistent difficulty with bowel movements, defined as fewer than three stools per week for several weeks.",
+    "severity": "low",
+    "specialist": "Gastroenterologist",
+    "common_symptoms": ["infrequent stools", "straining", "hard stools", "bloating", "abdominal discomfort", "feeling of incomplete evacuation"],
+    "advice": "Increase fiber intake, drink more water, exercise regularly. Consider OTC laxatives or consult a doctor."
+  },
+  "angina": {
+    "description": "Chest pain caused by reduced blood flow to the heart muscle. A symptom of coronary artery disease and a warning sign of heart attack.",
+    "severity": "critical",
+    "specialist": "Cardiologist",
+    "common_symptoms": ["chest pain", "pressure in chest", "pain in arms/jaw/neck", "shortness of breath", "sweating", "nausea"],
+    "advice": "Seek immediate medical attention if you suspect angina. Stop activity, rest, and call emergency services."
+  },
+  "multiple sclerosis": {
+    "description": "A chronic autoimmune disease where the immune system attacks the protective covering of nerves, disrupting brain-body communication.",
+    "severity": "high",
+    "specialist": "Neurologist",
+    "common_symptoms": ["numbness", "tingling", "vision problems", "fatigue", "difficulty walking", "muscle weakness"],
+    "advice": "Early diagnosis is crucial. Disease-modifying therapies can slow progression. Work closely with a neurologist."
+  },
+  "conjunctivitis": {
+    "description": "Inflammation or infection of the transparent membrane (conjunctiva) lining the eyelid and eyeball. Also known as pink eye.",
+    "severity": "low",
+    "specialist": "Ophthalmologist",
+    "common_symptoms": ["red eyes", "itchy eyes", "eye discharge", "tearing", "crusty eyelids"],
+    "advice": "Avoid touching eyes, wash hands frequently. Bacterial conjunctivitis needs antibiotic drops."
+  },
+  "psoriasis": {
+    "description": "A chronic autoimmune condition that causes rapid skin cell buildup, resulting in scaling on the skin's surface. Patches are itchy and sometimes painful.",
+    "severity": "medium",
+    "specialist": "Dermatologist",
+    "common_symptoms": ["red patches with silver scales", "dry cracked skin", "itching", "burning", "thickened nails", "stiff joints"],
+    "advice": "Moisturize regularly, use prescribed topical treatments, avoid triggers like stress and cold weather."
+  },
+  "sepsis": {
+    "description": "A life-threatening condition where the body's response to infection damages its own tissues and organs. Requires immediate medical treatment.",
+    "severity": "critical",
+    "specialist": "Emergency Medicine / Intensivist",
+    "common_symptoms": ["high fever", "rapid heartbeat", "rapid breathing", "confusion", "extreme pain", "clammy skin"],
+    "advice": "SEEK EMERGENCY CARE IMMEDIATELY. Sepsis is a medical emergency. Every minute counts for survival."
+  },
+  "panic disorder": {
+    "description": "An anxiety disorder characterized by unexpected, recurring panic attacks — sudden periods of intense fear with physical symptoms.",
+    "severity": "medium",
+    "specialist": "Psychiatrist / Psychologist",
+    "common_symptoms": ["sudden intense fear", "palpitations", "shortness of breath", "chest tightness", "dizziness", "trembling"],
+    "advice": "Breathing exercises and grounding techniques during attacks. Long-term: therapy (CBT) and possibly medication."
+  },
+  "diabetes": {
+    "description": "A metabolic disease causing high blood sugar levels. Type 1 is autoimmune; Type 2 is related to lifestyle and insulin resistance.",
+    "severity": "high",
+    "specialist": "Endocrinologist",
+    "common_symptoms": ["excessive thirst", "frequent urination", "fatigue", "blurred vision", "slow wound healing", "weight loss"],
+    "advice": "Monitor blood sugar regularly, maintain healthy diet and exercise, take medication as prescribed."
+  },
+  "asthma": {
+    "description": "A chronic respiratory condition where airways narrow, swell, and produce extra mucus, making breathing difficult.",
+    "severity": "high",
+    "specialist": "Pulmonologist / Allergist",
+    "common_symptoms": ["wheezing", "shortness of breath", "chest tightness", "cough", "difficulty breathing at night"],
+    "advice": "Use inhalers as prescribed, avoid triggers, have an asthma action plan, and seek emergency care for severe attacks."
+  },
+  "hypertension": {
+    "description": "Persistently elevated blood pressure that increases risk of heart disease, stroke, and organ damage. Often called the 'silent killer'.",
+    "severity": "high",
+    "specialist": "Cardiologist / General Practitioner",
+    "common_symptoms": ["headache", "shortness of breath", "nosebleed", "dizziness", "chest pain", "visual changes"],
+    "advice": "Reduce salt intake, exercise regularly, manage stress, limit alcohol, and take prescribed medications."
+  },
+  "urinary tract infection": {
+    "description": "An infection in any part of the urinary system — kidneys, ureters, bladder, or urethra. Most common in the bladder and urethra.",
+    "severity": "medium",
+    "specialist": "Urologist / General Practitioner",
+    "common_symptoms": ["burning urination", "frequent urination", "cloudy urine", "strong-smelling urine", "pelvic pain"],
+    "advice": "Drink plenty of water, take prescribed antibiotics, and urinate frequently. See a doctor if symptoms worsen."
+  }
+}
