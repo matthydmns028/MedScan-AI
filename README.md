@@ -8,11 +8,6 @@ MedScan-AI adalah aplikasi berbasis web yang menggunakan teknologi *Natural Lang
 - **Informasi Penyakit**: Menampilkan detail informasi penyakit yang diprediksi (melalui basis data `disease_info.json`).
 - **Antarmuka Interaktif**: Desain antarmuka (UI) yang mudah digunakan dilengkapi fitur saran gejala (*symptom chips*).
 
-## 📸 Screenshot Aplikasi
-
-*(Silakan tambahkan file screenshot aplikasi Anda ke dalam folder proyek dan ubah nama file di bawah ini jika diperlukan)*
-
-![Screenshot MedScan-AI](screenshot.png)
 
 ## 🚀 Instalasi & Persiapan
 
